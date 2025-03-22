@@ -28,10 +28,13 @@ cosine_sim = cosine_similarity(tfidf_matrix)
 
 # Function to get movie recommendations based on content-based filtering
 def get_recommendations(movie_title, cosine_sim=cosine_sim):
-    # Get the index of the movie
-    try:
-        idx = movies_df[movies_df['title'] == movie_title].index[0]
-    except IndexError:
+    # Find movies that contain the entered title (case-insensitive)
+    matching_movies = movies_df[movies_df['title'].str.contains(movie_title, case=False)]
+
+    if not matching_movies.empty:
+        # Use the index of the first matching movie
+        idx = matching_movies.index[0]
+    else:
         return "Movie not found"
 
     # Get the pairwise similarity scores
@@ -46,18 +49,49 @@ def get_recommendations(movie_title, cosine_sim=cosine_sim):
     # Get the movie indices
     movie_indices = [i[0] for i in sim_scores]
 
-    # Return the top 10 most similar movies
-    return movies_df['title'].iloc[movie_indices]
+    # Return the top 10 most similar movies with titles and genres
+    recommended_movies = movies_df[['title', 'genres']].iloc[movie_indices]
+    return recommended_movies
 
 # Streamlit web app
-st.title('Movie Recommender')
+# Custom CSS for centering
+st.markdown("""
+<style>
+.centered-title {
+    text-align: center;
+    font-weight: bold;
+}
+.centered-widget {
+    display: flex;
+    justify-content: center;
+}
+.centered-widget > div {
+    width: 80%; /* Adjust width as needed */
+}
+</style>
+""", unsafe_allow_html=True)
 
-movie_title = st.text_input('Enter a movie title:')
+# Centered title
+st.markdown('<h1 class="centered-title">Movie Recommender</h1>', unsafe_allow_html=True)
+
+# Create columns to center the text input
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    movie_title = st.text_input(
+        label='Enter a movie title', 
+        label_visibility='hidden', 
+        placeholder='Enter a movie title'
+        )
 
 if movie_title:
+    # Find the entered movie in the dataframe
+    input_movie_match = movies_df[movies_df['title'].str.contains(movie_title, case=False)]
+    
+    # Get movie recommendations and display
     recommendations = get_recommendations(movie_title)
     if isinstance(recommendations, str):
         st.write(recommendations)
     else:
-        st.write('Recommendations:')
-        st.write(recommendations)
+        input_movie_genres_str = ", ".join(input_movie_match.iloc[0]['genres'])
+        st.write(f"If you liked '{input_movie_match.iloc[0]['title']}' Genres: {input_movie_genres_str}, you might also like:")
+        st.dataframe(recommendations)
