@@ -1,0 +1,89 @@
+# Cline Rules: Movie Recommender
+
+## Project Patterns
+
+### Naming Conventions
+- Use camelCase for JavaScript variables and functions
+- Use PascalCase for React components and class names
+- Use kebab-case for file names
+- Use UPPER_SNAKE_CASE for constants
+
+### Code Organization
+- Group related components in dedicated directories
+- Keep component files relatively small and focused
+- Extract reusable logic into custom hooks
+- Separate business logic from UI components
+
+### Documentation Standards
+- Include JSDoc comments for functions and components
+- Maintain up-to-date README files for major directories
+- Document API endpoints with clear request/response examples
+- Keep the memory bank updated with all significant changes
+
+## User Preferences
+
+### Communication Style
+- Technical and direct communication
+- Step-by-step explanations for complex processes
+- Visual diagrams for architecture and workflows
+- Regular updates on progress and next steps
+
+### Development Priorities
+- Focus on core functionality before optimization
+- Prioritize user experience and interface design
+- Implement features incrementally with regular feedback
+- Maintain high code quality and test coverage
+
+## Implementation Guidelines
+
+### Frontend Development
+- Use functional components with hooks
+- Implement responsive design from the beginning
+- Follow accessibility best practices
+- Use TypeScript for type safety
+
+### Backend Development
+- Follow RESTful API design principles
+- Implement proper error handling and validation
+- Use async/await for asynchronous operations
+- Maintain clear separation of concerns
+
+### Testing Strategy
+- Write unit tests for utility functions and hooks
+- Create integration tests for API endpoints
+- Implement end-to-end tests for critical user flows
+- Use TDD approach when appropriate
+
+## Project-Specific Notes
+
+### Recommendation Algorithm
+- Start with content-based filtering for initial implementation
+- Plan for hybrid approach combining content-based and collaborative filtering
+- Consider user explicit preferences (ratings, likes) and implicit behavior (viewing history)
+- Implement A/B testing framework for algorithm improvements
+
+### External API Integration
+- Cache external API responses to reduce rate limiting issues
+- Implement retry logic for failed API requests
+- Create fallback mechanisms for when external APIs are unavailable
+- Normalize data from different sources into a consistent format
+
+### Performance Considerations
+- Implement lazy loading for movie lists
+- Use pagination for large data sets
+- Optimize images for faster loading
+- Consider server-side rendering for initial page load
+
+## Known Challenges
+
+### Data Quality
+- Handling incomplete or inconsistent movie data from external sources
+- Merging information from multiple APIs
+- Dealing with duplicate movies across different sources
+
+### User Engagement
+- Encouraging users to rate movies for better recommendations
+- Balancing between showing popular movies and personalized recommendations
+- Providing enough variety to avoid recommendation bubbles
+
+This document will evolve as we learn more about the project, discover new patterns, and establish best practices specific to the Movie Recommender application.
