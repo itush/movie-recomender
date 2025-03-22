@@ -4,7 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 # Load the movies.csv dataset
-movies_df = pd.read_csv("d:/movie-recomender/data/movies.csv")
+movies_df = pd.read_csv("../data/movies.csv")
 
 # Preprocess the genres column: split the genres into a list
 movies_df['genres'] = movies_df['genres'].apply(lambda x: x.split('|'))
