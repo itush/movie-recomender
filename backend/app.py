@@ -1,10 +1,17 @@
+import os
 import streamlit as st
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
+# Determine the correct path to the movies.csv file
+if 'DYNO' in os.environ:
+    DATA_PATH = "data/movies.csv"  # Streamlit Cloud
+else:
+    DATA_PATH = "./data/movies.csv"  # Local
+
 # Load the movies.csv dataset
-movies_df = pd.read_csv("../data/movies.csv")
+movies_df = pd.read_csv(DATA_PATH)
 
 # Preprocess the genres column: split the genres into a list
 movies_df['genres'] = movies_df['genres'].apply(lambda x: x.split('|'))
